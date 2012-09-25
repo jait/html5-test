@@ -1,4 +1,4 @@
-TARGETS = init.js 3dstarf.js
+TARGETS = init.js starfield.js
 
 .PHONY: all clean
 

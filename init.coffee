@@ -13,7 +13,7 @@ readyCallback = undefined
 domReady = ->
   # Make sure that the DOM is not already loaded
   if not isReady
-      log "domReady!"
+      #log "domReady!"
       # be sure document.body is there
       if not document.body
         return setTimeout(domReady, 13)

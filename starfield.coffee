@@ -11,6 +11,7 @@ numStars = 200
 stars = []
 updateTimeout = undefined
 updateInterval = 40 # ms
+startTimeout = undefined
 zMax = 256
 zSpeed = updateInterval / 10 | 0
 centerX = centerY = 0
@@ -47,6 +48,7 @@ main = ->
   return
 
 start = ->
+  startTimeout = undefined
   updateTimeout = window.setInterval(update, updateInterval)
 
 stop = ->
@@ -90,7 +92,22 @@ update = ->
 
   return
 
+resize = ->
+  stop()
+  canvas.width = window.innerWidth
+  canvas.height= window.innerHeight
+  centerX = canvas.width / 2
+  centerY = canvas.height / 2
+  if startTimeout
+    window.clearTimeout(startTimeout)
+    startTimeout = undefined
 
+  startTimeout = window.setTimeout(
+    -> start()
+    100)
+  return
+
+root.resize = resize
 root.main = main
 root.start = start
 root.stop = stop
