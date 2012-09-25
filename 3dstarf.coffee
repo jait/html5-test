@@ -7,12 +7,12 @@ canvas = undefined
 ctx = undefined
 starImageData = undefined
 
-numStars = 70
+numStars = 200
 stars = []
 updateTimeout = undefined
 updateInterval = 40 # ms
 zMax = 256
-zSpeed = updateInterval / 20 | 0
+zSpeed = updateInterval / 10 | 0
 centerX = centerY = 0
 
 log = (msg) ->
