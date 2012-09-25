@@ -1,17 +1,17 @@
-# 3dstarf.coffee
+# starfield.coffee
 # vim: sts=2 sw=2 et:
 
 root = exports ? this
 
-canvas = undefined
-ctx = undefined
-starImageData = undefined
+canvas = null
+ctx = null
+starImageData = null
 
 numStars = 200
 stars = []
-updateTimeout = undefined
+startTimeout = null
+updateTimeout = null
 updateInterval = 40 # ms
-startTimeout = undefined
 zMax = 256
 zSpeed = updateInterval / 10 | 0
 centerX = centerY = 0
@@ -20,7 +20,7 @@ log = (msg) ->
   console?.log msg
 
 main = ->
-  console?.log "main"
+  #log "main"
   # init
   canvas = document.getElementById("canvas")
   canvas.width = window.innerWidth
@@ -48,7 +48,7 @@ main = ->
   return
 
 start = ->
-  startTimeout = undefined
+  startTimeout = null
   updateTimeout = window.setInterval(update, updateInterval)
 
 stop = ->
@@ -79,7 +79,7 @@ update = ->
     gx = s.x * 256 / s.z + centerX # center = the center of the screen
     gy = s.y * 256 / s.z + centerY
     #log("gx " + gx + " gy " + gy)
-    if (gx < canvas.width) and (gx >- 1) and (gy < canvas.height) and (gy >- 1)
+    if gx < canvas.width and gx > -1 and gy < canvas.height and gy > -1
       # adjust intensity to make stars appear initially as dark
       #drawStar(gx, gy, 255 - (1.0 - (zMax - s.z) * 2 / zMax) * 255 | 0)
       drawStar(gx, gy, (zMax - s.z) * intensityScale | 0)
@@ -100,7 +100,7 @@ resize = ->
   centerY = canvas.height / 2
   if startTimeout
     window.clearTimeout(startTimeout)
-    startTimeout = undefined
+    startTimeout = null
 
   startTimeout = window.setTimeout(
     -> start()
