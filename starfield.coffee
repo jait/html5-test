@@ -24,7 +24,7 @@ main = ->
   # init
   canvas = document.getElementById("canvas")
   canvas.width = window.innerWidth
-  canvas.height= window.innerHeight
+  canvas.height = window.innerHeight
   centerX = canvas.width / 2
   centerY = canvas.height / 2
   ctx = canvas.getContext("2d")
@@ -39,12 +39,10 @@ main = ->
   starImageData.data[3] = 255 # opaque
 
   i = 0
-  while i < numStars
+  while i++ < numStars
     stars.push initStar()
-    i++
 
   start()
-
   return
 
 start = ->
@@ -66,9 +64,7 @@ initStar = (star) ->
   star
 
 drawStar = (x, y, intensity=255) ->
-  starImageData.data[0] = intensity
-  starImageData.data[1] = intensity
-  starImageData.data[2] = intensity
+  starImageData.data[0] = starImageData.data[1] = starImageData.data[2] = intensity
   ctx.putImageData(starImageData, x, y)
 
 update = ->
@@ -86,16 +82,15 @@ update = ->
     else
       initStar s
 
-    s.z = s.z - zSpeed
-    if s.z is 0
-      s.z = -1 # just to ensure...
+    s.z -= zSpeed
+    s.z = -1 if s.z is 0 # just to ensure...
 
   return
 
 resize = ->
   stop()
   canvas.width = window.innerWidth
-  canvas.height= window.innerHeight
+  canvas.height = window.innerHeight
   centerX = canvas.width / 2
   centerY = canvas.height / 2
   if startTimeout
